@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Number Guessing Game</title>
+</head>
+<body>
+  <h1>Number Guessing Game</h1>
+  <p>Try to guess the random number between 1 and 10!</p>
+  <input type="number" id="userGuess" placeholder="Enter your guess">
+  <button id="guessButton">Submit Guess</button>
+  <p id="feedback"></p>
+  <p id="attempts"></p>
+
+  <script>
+    const minNumber = 1;
+    const maxNumber = 10;
+    const targetNumber = Math.floor(Math.random() * (maxNumber - minNumber + 1)) + minNumber;
+    let attempts = 0;
+
+    const feedbackElement = document.getElementById('feedback');
+    const attemptsElement = document.getElementById('attempts');
+    const guessButton = document.getElementById('guessButton');
+
+    guessButton.addEventListener('click', () => {
+      const userGuess = parseInt(document.getElementById('userGuess').value);
+      attempts++;
+
+      if (userGuess === targetNumber) {
+        feedbackElement.textContent = `Congratulations! You guessed the correct number, which was ${targetNumber}, and it took you ${attempts} ${attempts === 1 ? 'guess' : 'guesses'}.`;
+        guessButton.disabled = true;
+      } else if (userGuess < targetNumber) {
+        feedbackElement.textContent = 'Higher! Try again.';
+      } else {
+        feedbackElement.textContent = 'Lower! Try again.';
+      }
+
+      attemptsElement.textContent = `Attempts: ${attempts}`;
+    });
+  </script>
+</body>
+</html>
